@@ -1,0 +1,20 @@
+Request URL: v2/sleep?action=get&startdate=1582332012&enddate=1582416012
+Response example:
+
+```
+{"status":0,"body":{"series":[{"startdate":1582361580,"state":0,"enddate":1582361760,"model":"Activite Steel HR"},{"startdate":1582361760,"state":1,"enddate":1582362900,"model":"Activite Steel HR"},{"startdate":1582374540,"state":1,"enddate":1582376340,"model":"Activite Steel HR"},{"startdate":1582376340,"state":2,"enddate":1582376520,"model":"Activite Steel HR"},{"startdate":1582376520,"state":1,"enddate":1582377300,"model":"Activite Steel HR"},{"startdate":1582377300,"state":2,"enddate":1582378740,"model":"Activite Steel HR"},{"startdate":1582378740,"state":1,"enddate":1582384620,"model":"Activite Steel HR"},{"startdate":1582384620,"state":2,"enddate":1582384860,"model":"Activite Steel HR"},{"startdate":1582384860,"state":1,"enddate":1582385100,"model":"Activite Steel HR"},{"startdate":1582385100,"state":0,"enddate":1582385520,"model":"Activite Steel HR"},{"startdate":1582385520,"state":1,"enddate":1582388220,"model":"Activite Steel HR"},{"startdate":1582388220,"state":2,"enddate":1582388400,"model":"Activite Steel HR"},{"startdate":1582362900,"state":2,"enddate":1582363560,"model":"Activite Steel HR"},{"startdate":1582388400,"state":1,"enddate":1582389120,"model":"Activite Steel HR"},{"startdate":1582363560,"state":1,"enddate":1582368720,"model":"Activite Steel HR"},{"startdate":1582368720,"state":2,"enddate":1582368900,"model":"Activite Steel HR"},{"startdate":1582368900,"state":1,"enddate":1582370400,"model":"Activite Steel HR"},{"startdate":1582370400,"state":2,"enddate":1582373100,"model":"Activite Steel HR"},{"startdate":1582373100,"state":1,"enddate":1582373940,"model":"Activite Steel HR"},{"startdate":1582373940,"state":2,"enddate":1582374540,"model":"Activite Steel HR"}],"model":16}}
+```
+
+
+
+Request URL: v2/sleep?action=getsummary&startdateymd=${start_date}&enddateymd=${end_date}
+-- start_date, end_date: "yyyy-mm-dd"
+
+Response example:
+
+```
+{"status":0,"body":{"series":[{"id":1340178757,"timezone":"America\/Denver","model":16,"startdate":1582361580,"enddate":1582389120,"date":"2020-02-22","data":{"wakeupduration":600,"lightsleepduration":20760,"deepsleepduration":6180,"wakeupcount":1,"durationtosleep":180,"durationtowakeup":0},"modified":1582407181}],"more":false,"offset":0}}
+```
+
+Inner fields in "data" are in seconds (e.g., {"wakeupduration":600}
+is 600 seconds or 10 minutes).

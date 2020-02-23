@@ -48,10 +48,10 @@ app.get('/workouts', (req, res) => {
         return;
     }
     
-    const start_date = '2020-02-21';
+    const start_date = '2020-02-20';
     const end_date = '2020-02-22';
     const data_fields = 'calories,effduration,intensity';
-    let uri = `https://wbsapi.withings.net/v2/measure?action=getworkouts`
+    let uri = `https://wbsapi.withings.net/v2/sleep?action=getsummary&startdateymd=${start_date}&enddateymd=${end_date}`
             //    + `startdateymd=${start_date}&`
             //    + `enddateymd=${end_date}`
             //    + `data_fields=${data_fields}`;

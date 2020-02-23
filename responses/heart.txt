@@ -1,0 +1,21 @@
+Request URL: v2/heart?action=get
+Response example:
+
+THIS REQUIRES SOME "SIGNALID" WHICH IS PROBABLY OBTAINED
+FROM THE OTHER REQUEST MENTIONED BELOW.
+
+```
+<na>
+```
+
+
+
+Request URL: v2/heart?action=list
+Response example:
+
+THIS REQUIRES BPM CORE TO RECORD SOME DATA WHICH WE DON'T HAVE.
+TODO: do several bpm recordings.
+
+```
+{"status":0,"body":{"series":[],"more":false,"offset":0}}
+```

@@ -1,0 +1,31 @@
+Request URL: /measure?action=getmeas
+Response example:
+
+```
+{"status":0,"body":{"updatetime":1582428308,"timezone":"America\/Edmonton","measuregrps":[{"grpid":1831474456,"attrib":2,"date":1579633769,"created":1579633774,"category":1,"deviceid":null,"measures":[{"value":820000,"type":1,"unit":-4,"algo":0,"fm":3}],"comment":null},{"grpid":1831471089,"attrib":2,"date":1579633425,"created":1579633425,"category":1,"deviceid":null,"measures":[{"value":88000,"type":1,"unit":-3,"algo":0,"fm":3}],"comment":null},{"grpid":1831471088,"attrib":2,"date":1579633425,"created":1579633425,"category":1,"deviceid":null,"measures":[{"value":173,"type":4,"unit":-2,"algo":0,"fm":3}],"comment":null}]}}
+```
+
+Request URL: v2/measure?action=getactivity
+Response example:
+
+```
+{"status":0,"body":{"activities":[{"steps":1729,"distance":1418.74,"elevation":0,"soft":2939,"moderate":300,"intense":0,"active":300,"calories":79.668,"totalcalories":1823.69,"deviceid":null,"timezone":"America\/Denver","date":"2020-02-21","brand":1,"is_tracker":true},{"steps":3042,"distance":2670.39,"elevation":0,"soft":4322,"moderate":840,"intense":60,"active":900,"calories":116.525,"totalcalories":1876.557,"deviceid":null,"timezone":"America\/Denver","date":"2020-02-22","brand":1,"is_tracker":true}],"more":false,"offset":200}}
+```
+
+
+Request URL: v2/measure?action=getintradayactivity
+Response example:
+
+```
+{"status":0,"body":{"series":{"1582405920":{"steps":10,"duration":1200,"elevation":0,"distance":7.46,"calories":0.27,"model":"Activite Steel HR","deviceid":null}}}}
+```
+
+
+
+
+Request URL: v2/measure?action=getworkouts
+Response example:
+
+```
+{"status":0,"body":{"series":[{"id":1339181459,"category":1,"timezone":"America\/Denver","model":55,"attrib":7,"startdate":1582329415,"enddate":1582329434,"date":"2020-02-21","deviceid":null,"data":{"calories":1,"intensity":30,"manual_distance":0,"manual_calories":0,"steps":27,"distance":20,"elevation":1},"modified":1582334325},{"id":1339181463,"category":272,"timezone":"America\/Denver","model":55,"attrib":20000,"startdate":1582329415,"enddate":1582329434,"date":"2020-02-21","deviceid":null,"data":[],"modified":1582329437},{"id":1339181791,"category":2,"timezone":"America\/Denver","model":55,"attrib":7,"startdate":1582329449,"enddate":1582329472,"date":"2020-02-21","deviceid":null,"data":{"calories":3,"intensity":30,"manual_distance":0,"manual_calories":0,"steps":0,"distance":0,"elevation":0},"modified":1582334325},{"id":1339181804,"category":272,"timezone":"America\/Denver","model":55,"attrib":20000,"startdate":1582329449,"enddate":1582329472,"date":"2020-02-21","deviceid":null,"data":[],"modified":1582329475},{"id":1339219194,"category":1,"timezone":"America\/Denver","model":55,"attrib":0,"startdate":1582332540,"enddate":1582333260,"date":"2020-02-21","deviceid":null,"data":{"calories":53,"intensity":30,"manual_distance":0,"manual_calories":0,"steps":913,"distance":666,"elevation":39},"modified":1582334328},{"id":1340179447,"category":1,"timezone":"America\/Denver","model":55,"attrib":0,"startdate":1582400460,"enddate":1582401420,"date":"2020-02-22","deviceid":null,"data":{"calories":70,"intensity":30,"manual_distance":0,"manual_calories":0,"steps":1477,"distance":1167,"elevation":60},"modified":1582407232}],"more":false,"offset":0}}
+```
