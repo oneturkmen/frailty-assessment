@@ -49,8 +49,11 @@ app.get('/oauth_callback', function (req, res) {
       console.log(error);
       return;
     }
-    console.log(JSON.parse(body));
+    // Store into session
+
     req.session.withings_token = JSON.parse(body).access_token;
+
+    // Redirect elsewhere
     res.redirect('/status');
   });
 });
@@ -81,9 +84,7 @@ app.get('/workouts', (req, res) => {
   //    + `enddateymd=${end_date}`
   //    + `data_fields=${data_fields}`;
 
-  return request.get(uri, { 'auth': { 'bearer': req.session.withings_token } }, (err, response, body) => {
-    console.log(`Response = ${JSON.stringify(response, null, 2)}`)
-    console.log(`Body = ${JSON.stringify(body, null, 2)}`)
+  return request.get(uri, { 'auth': { 'bearer': req.session.withings_token } }, (err, response, body) => {    
     res.send(body);
   })
 })
