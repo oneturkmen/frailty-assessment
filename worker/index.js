@@ -75,8 +75,10 @@ app.get('/status', (req, res) => {
     return;
   }
 
+  console.log(req.params);
+
   // Retrieve the token from the environment
-  res.send(req.session.withings_token);
+  res.status(200).send(req.session.withings_token);
 });
 
 app.get('/workouts', (req, res) => {
@@ -88,7 +90,8 @@ app.get('/workouts', (req, res) => {
   const start_date = '2020-02-20';
   const end_date = '2020-02-22';
   const data_fields = 'calories,effduration,intensity';
-  let uri = `https://wbsapi.withings.net/v2/heart?action=list`
+  //let uri = `https://wbsapi.withings.net/v2/heart?action=list`
+  let uri = 'https://wbsapi.withings.net/notify?action=subscribe&callbackurl=http://localhost&appli=4'
   //let uri = `https://wbsapi.withings.net/v2/sleep?action=getsummary&startdateymd=${start_date}&enddateymd=${end_date}`
   //    + `startdateymd=${start_date}&`
   //    + `enddateymd=${end_date}`
