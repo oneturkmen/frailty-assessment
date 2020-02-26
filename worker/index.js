@@ -72,6 +72,15 @@ app.get('/oauth_callback', (req, res) => {
   });
 });
 
+app.get('/listener', (req, res) => {
+  console.log(`Got a request on /listener router`);
+  console.log(req.params);
+
+  // Retrieve the token from the environment
+  res.status(200).send('OK');
+});
+
+
 app.get('/status', (req, res) => {
   // Make sure the Withings token is there
   if (!req.session.withings_token) {
@@ -95,7 +104,7 @@ app.get('/workouts', (req, res) => {
   const end_date = '2020-02-22';
   const data_fields = 'calories,effduration,intensity';
   //let uri = `https://wbsapi.withings.net/v2/heart?action=list`
-  let uri = 'https://wbsapi.withings.net/notify?action=subscribe&callbackurl=https://iot664-app.herokuapp.com/status&appli=4'
+  let uri = 'https://wbsapi.withings.net/notify?action=subscribe&callbackurl=https://iot664-app.herokuapp.com/listener&appli=4'
   //let uri = `https://wbsapi.withings.net/v2/sleep?action=getsummary&startdateymd=${start_date}&enddateymd=${end_date}`
   //    + `startdateymd=${start_date}&`
   //    + `enddateymd=${end_date}`
