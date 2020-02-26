@@ -8,8 +8,8 @@ services:
     environment:
       - PORT=80
       - CLIENT_ID=${CLIENT_ID}
-      - CLIENT_ID=${CLIENT_SECRET}
-      - CLIENT_ID=${CALLBACK_URI}
+      - CLIENT_SECRET=${CLIENT_SECRET}
+      - CALLBACK_URI=${CALLBACK_URI}
       - NODE_ENV=prod
     networks:
       - back
