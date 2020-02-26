@@ -1,0 +1,37 @@
+version: '3'
+services:
+
+  worker:
+    build: ./worker
+    ports:
+      - 8080:8080
+    environment:
+      - PORT=8080
+    networks:
+      - back
+    depends_on:
+      - db
+    command: /bin/sh -c "sleep 10 && npm start"  # wait until db is ready for conns
+    # if you ever get permission denied error, look here:
+    # https://github.community/t5/GitHub-Actions/Permission-Denied-quot-exec-entrypoint-sh-quot/td-p/31249
+
+  db:
+    image: postgres:9.6.17-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=unicorn
+      - POSTGRES_PASSWORD=chocolate
+      - POSTGRES_DB=rainbows
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d # tables and stuff
+      - db-data:/var/lib/postgresql/data # persist data
+    ports:
+      - 5434:5432
+    networks:
+      - back
+
+volumes:
+  db-data:
+
+networks:
+  back:

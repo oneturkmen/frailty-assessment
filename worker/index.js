@@ -2,6 +2,9 @@ const express = require('express');
 const request = require('request');
 const session = require('express-session');
 
+// Get the environment variables
+require('dotenv').config({ path: '../.env' });
+
 // Initialize the app
 const app = express();
 
@@ -18,14 +21,14 @@ app.use(session({
 
 
 // Auth stuff for Withings API
-const client_id = "b20d067e73880c0ed0b423d7bb16dd25dd65d377eace3cf79affdd1d5153a1b9";
-const client_secret = "640ccfa8f242048c1476a1b6920ee1bd558fb6869afbd1ac694abdf1d07ab701";
-const callback_uri = "http://localhost:5000/oauth_callback";
+const client_id = process.env.CLIENT_ID;
+const client_secret = process.env.CLIENT_SECRET;
+const callback_uri = process.env.CALLBACK_URI;
 
 const authorize_url = "https://account.withings.com/oauth2_user/authorize2"
 const token_url = "https://account.withings.com/oauth2/token"
 
-app.get('/', function (req, res) {
+app.get('/', (req, res) => {
   let authorization_redirect_url = authorize_url +
     '?response_type=code' +
     '&state=test' +
@@ -36,7 +39,7 @@ app.get('/', function (req, res) {
 });
 
 // On return from the authorization
-app.get('/oauth_callback', function (req, res) {
+app.get('/oauth_callback', (req, res) => {
   let data = {
     'grant_type': 'authorization_code',
     'code': req.query.code,
@@ -70,7 +73,6 @@ app.get('/status', (req, res) => {
 });
 
 app.get('/workouts', (req, res) => {
-  // TODO: set it in the req.session + refresh token
   if (!req.session.withings_token) {
     res.redirect('/');
     return;
@@ -79,7 +81,8 @@ app.get('/workouts', (req, res) => {
   const start_date = '2020-02-20';
   const end_date = '2020-02-22';
   const data_fields = 'calories,effduration,intensity';
-  let uri = `https://wbsapi.withings.net/v2/sleep?action=getsummary&startdateymd=${start_date}&enddateymd=${end_date}`
+  let uri = `https://wbsapi.withings.net/v2/heart?action=list`
+  //let uri = `https://wbsapi.withings.net/v2/sleep?action=getsummary&startdateymd=${start_date}&enddateymd=${end_date}`
   //    + `startdateymd=${start_date}&`
   //    + `enddateymd=${end_date}`
   //    + `data_fields=${data_fields}`;
