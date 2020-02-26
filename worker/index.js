@@ -3,7 +3,9 @@ const request = require('request');
 const session = require('express-session');
 
 // Get the environment variables
-require('dotenv').config({ path: '../.env' });
+if (process.env.NODE_ENV != 'prod') {
+  require('dotenv').config({ path: '../.env' });
+}
 
 // Initialize the app
 const app = express();
