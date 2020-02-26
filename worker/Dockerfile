@@ -2,8 +2,6 @@ FROM node:9-alpine
 
 # Copy files into the container
 COPY . /app
-COPY ../.env /app
-
 WORKDIR /app
 
 # Install everything
