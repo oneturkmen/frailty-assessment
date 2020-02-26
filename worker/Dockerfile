@@ -9,4 +9,8 @@ RUN npm install
 
 # Expose port 5000 unless specified different by docker-compose.yml
 ARG PORT=5000
+ARG CLIENT_ID
+ARG CLIENT_SECRET
+ARG CALLBACK_URI
+
 EXPOSE $PORT
