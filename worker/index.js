@@ -31,6 +31,7 @@ const authorize_url = "https://account.withings.com/oauth2_user/authorize2"
 const token_url = "https://account.withings.com/oauth2/token"
 
 app.get('/', (req, res) => {
+  console.log(client_id);
   let authorization_redirect_url = authorize_url +
     '?response_type=code' +
     '&state=test' +
