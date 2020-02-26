@@ -34,6 +34,10 @@ const callback_uri = process.env.CALLBACK_URI;
 const authorize_url = "https://account.withings.com/oauth2_user/authorize2"
 const token_url = "https://account.withings.com/oauth2/token"
 
+app.get('/wakeup', (req, res) => {
+  res.send('Thanks for waking me up!');
+})
+
 app.get('/', (req, res) => {
   console.log(client_id);
   let authorization_redirect_url = authorize_url +
@@ -91,7 +95,7 @@ app.get('/workouts', (req, res) => {
   const end_date = '2020-02-22';
   const data_fields = 'calories,effduration,intensity';
   //let uri = `https://wbsapi.withings.net/v2/heart?action=list`
-  let uri = 'https://wbsapi.withings.net/notify?action=subscribe&callbackurl=http://localhost&appli=4'
+  let uri = 'https://wbsapi.withings.net/notify?action=subscribe&callbackurl=https://iot664-app.herokuapp.com/status&appli=4'
   //let uri = `https://wbsapi.withings.net/v2/sleep?action=getsummary&startdateymd=${start_date}&enddateymd=${end_date}`
   //    + `startdateymd=${start_date}&`
   //    + `enddateymd=${end_date}`
