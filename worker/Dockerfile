@@ -11,4 +11,7 @@ RUN npm install
 ARG PORT=5000
 ARG NODE_ENV=dev
 
+# Database connection URI
+ARG DB_URI
+
 EXPOSE $PORT

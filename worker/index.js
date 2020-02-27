@@ -2,9 +2,9 @@ const express = require('express');
 const request = require('request');
 const session = require('express-session');
 const cron = require('node-cron');
+const { Client } = require('pg');
 
 // Get the environment variables
-
 if (process.env.NODE_ENV == 'prod') {
   require('dotenv').config();
 }
@@ -14,6 +14,11 @@ else {
 
 // Initialize the app
 const app = express();
+
+// Set the database configuration
+let client = new Client({
+  connectionString: process.env.DB_URI
+});
 
 // Auth stuff for Withings API
 const client_id = process.env.CLIENT_ID;
@@ -75,21 +80,33 @@ const register_jobs = () => {
 }
 
 // Self-invoking function, i.e. get invokes as soon as you `npm start`
-const initialize = () => {
+const set_jobs_on_fire = () => {
   // Before scheduling jobs, loop until token is obtained
   let jobs_started = register_jobs();
 
   if (!jobs_started) {
     setTimeout(() => {
-      console.log('[initialize] > CRON is not ready, token is not available ...');
-      console.log('[initialize] > Trying in 10 seconds ...');
+      console.log('[set_jobs_on_fire] > CRON is not ready, token is not available ...');
+      console.log('[set_jobs_on_fire] > Trying in 10 seconds ...');
 
-      jobs_started = initialize();
+      jobs_started = set_jobs_on_fire();
     }, 10000);
   } else {
-    console.log(`[initialize] > Jobs have been successfully registered!`);
+    console.log(`[set_jobs_on_fire] > Jobs have been successfully registered!`);
   }
 };
+
+const initialize = async () => {
+  // Start asynchronously
+  set_jobs_on_fire();  
+
+  // Connect to the database  
+  try { 
+    await client.connect();
+  } catch (e) {
+    console.log(`[initialize] ERROR >>>>>>> ${e.message}`);
+  }
+}
 
 initialize();
 
