@@ -4,6 +4,9 @@ const session = require('express-session');
 const cron = require('node-cron');
 const { Client } = require('pg');
 
+// Local packages
+const jobs = require('./jobs');
+
 // Get the environment variables
 if (process.env.NODE_ENV == 'prod') {
   require('dotenv').config();
@@ -31,50 +34,23 @@ const token_url = "https://account.withings.com/oauth2/token";
 const register_jobs = () => {
   // If token is not there, don't start any jobs yet
   if (process.env.access_token == null || process.env.access_token == '') {
-    console.log(`\n[register_jobs] > Warning! Access token is not available!\n`);
+    console.log(`\n[register_jobs] >>> Warning! Access token is not available!\n`);
     return false;
   }
 
-  // Get the user sleep data every 10 minutes
-  cron.schedule('*/10 * * * *', () => {
-    console.log(`\n[JOB] > Getting user sleep data ...\n`);
-
-    const start_date = '2020-02-20';
-    const end_date = '2020-02-22';
-    const data_fields = 'calories,effduration,intensity';
-
-    const uri = `https://wbsapi.withings.net/v2/sleep?action=getsummary&startdateymd=${start_date}&enddateymd=${end_date}`;
-
-    request.get(uri, { 'auth': { 'bearer': process.env.access_token } }, (err, response, body) => {    
-      console.log(JSON.stringify(body, null, 2));
-      return;
-    });
-  });
+  // Sleep summary every 12 hours
+  //cron.schedule('0 */12 * * *', jobs.handle_sleep_summary);
 
   // Refresh token every 2 hours
-  cron.schedule('0 */2 * * *', () => {
-    console.log(`\n[JOB] > Refreshing token ...\n`);
+  //cron.schedule('0 */2 * * *', jobs.refresh_token);
 
-    let data = {
-      'grant_type': 'refresh_token',
-      'refresh_token': process.env.refresh_token,
-      'client_id': client_id,
-      'client_secret': client_secret
-    };
+  // Sleep activities every 30 minutes
+  //cron.schedule('*/30 * * * *', jobs.handle_sleep);
 
-    request.post(token_url, { form: data }, (error, response, body) => {
-      if (error) {
-        console.log(error);
-        return;
-      }
-      // Store into session
-  
-      process.env.refresh_token = JSON.parse(body).refresh_token;
-      process.env.access_token = JSON.parse(body).access_token;
-    });  
-  });
+  // Measurements (e.g., weight) every 30 minutes
+  // cron.schedule('*/2 * * * *', jobs.handle_measurements);
 
-  console.log(`[register_jobs] > Succesfully registered jobs`);
+  console.log(`[register_jobs] Successfully registered jobs`);
 
   return true;
 }
