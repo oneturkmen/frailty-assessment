@@ -38,17 +38,26 @@ const register_jobs = () => {
     return false;
   }
 
-  // Sleep summary every 12 hours
-  //cron.schedule('0 */12 * * *', jobs.handle_sleep_summary);
+  // Sleep summary every 24 hours
+  cron.schedule('0 0 * * *', jobs.handle_sleep_summary);
 
   // Refresh token every 2 hours
-  //cron.schedule('0 */2 * * *', jobs.refresh_token);
+  cron.schedule('0 */2 * * *', jobs.refresh_token);
 
   // Sleep activities every 30 minutes
-  //cron.schedule('*/30 * * * *', jobs.handle_sleep);
+  cron.schedule('*/30 * * * *', jobs.handle_sleep);
 
   // Measurements (e.g., weight) every 30 minutes
-  // cron.schedule('*/2 * * * *', jobs.handle_measurements);
+  cron.schedule('*/30 * * * *', jobs.handle_measurements);
+
+  // Physical activity summary every 24 hours
+  cron.schedule('0 0 * * *', jobs.handle_activity);
+
+  // Intraday activity every 30 minutes
+  cron.schedule('*/30 * * * *', jobs.handle_intraday_activity);
+
+  // Get workouts summary every 24 hours
+  cron.schedule('0 0 * * *', jobs.handle_workouts);
 
   console.log(`[register_jobs] Successfully registered jobs`);
 
@@ -99,7 +108,7 @@ app.get('/', (req, res) => {
       '&state=test' +
       '&client_id=' + client_id +
       '&redirect_uri=' + callback_uri +
-      '&scope=user.info,user.metrics,user.activity';
+      '&scope=user.info,user.metrics,user.activity,user.sleepevents';
 
     return res.redirect(authorization_redirect_url);
   } else {
@@ -125,6 +134,7 @@ app.get('/oauth_callback', (req, res) => {
     // Store into process env
     process.env.access_token = JSON.parse(body).access_token;
     process.env.refresh_token = JSON.parse(body).refresh_token;
+    console.log(`WAIT WHAT? ${process.env.access_token}`);
 
     // Redirect elsewhere
     res.redirect('/health');

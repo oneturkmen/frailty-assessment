@@ -4,7 +4,7 @@ const request = require('request');
 // Token refresher
 // **********************************************
 module.exports.refresh_token = () => {
-  console.log(`[JOB refresh_token] Refreshing token`);
+  console.log(`[JOB: refresh_token] Refreshing token`);
 
   // Prepare request body for access token refresh
   let data = {
@@ -32,7 +32,7 @@ module.exports.handle_measurements = () => {
   /**
    * JOB: EVERY 30 MINUTES
    */
-  console.log(`[JOB handle_measurements] Getting measurements data`);
+  console.log(`[JOB: handle_measurements] Getting measurements data`);
 
   // Format the dates
   const now_ts = Math.round((new Date()).getTime() / 1000);
@@ -89,18 +89,124 @@ module.exports.handle_measurements = () => {
 }
 
 module.exports.handle_activity = () => {
-  console.log(`[JOB handle_activity] Getting general activity data`);
-  throw new Error("Unimplemented!");
+  /**
+   * JOB: EVERY 24 HOURS
+   */
+  console.log(`[JOB: handle_activity] Getting general activity data`);
+
+  // Format the dates
+  const now = new Date();
+  const yesterday_time = new Date();
+  yesterday_time.setDate(yesterday_time.getDate() - 1);
+
+  const day = ("0" + now.getDate()).slice(-2);
+  const month = ("0" + (now.getMonth() + 1)).slice(-2);
+  const today_date = now.getFullYear() + "-" + (month) + "-" + (day);
+  
+  const yesterday_day = ("0" + yesterday_time.getDate()).slice(-2);
+  const yesterday_month = ("0" + (yesterday_time.getMonth() + 1)).slice(-2);
+  const yesterday_date = yesterday_time.getFullYear() +  "-" + 
+    (yesterday_month) + "-" + (yesterday_day);
+
+  // Set request parameters
+  const start_date = yesterday_date;
+  const end_date = today_date;
+
+  const data_fields = `steps,distance,elevation,soft,` +
+    `moderate,intense,active,calories,` + 
+    `totalcalories,hr_average,hr_min,hr_max,` + 
+    `hr_zone_0,hr_zone_1,hr_zone_2,hr_zone_3`;
+
+  // Finalize the request URI
+  const uri = `https://wbsapi.withings.net/v2/measure?` + 
+    `action=getactivity` + 
+    `&startdateymd=${start_date}&enddateymd=${end_date}&` +
+    `data_fields=${data_fields}`;
+
+  // Call the API
+  request.get(uri,
+    { 'auth': { 'bearer': process.env.access_token } },
+    (err, response, body) => {
+      console.log(`[JOB: handle_activity] Response from endpoint: ${JSON.stringify(body, null, 2)}`);
+      return;
+    }
+  );
 }
 
 module.exports.handle_intraday_activity = () => {
-  console.log(`[JOB handle_intraday_activity] Getting intraday activity data`);
-  throw new Error("Unimplemented!");
+  /**
+   * JOB: EVERY 30 MINUTES
+   */
+  console.log(`[JOB: handle_intraday_activity] Getting intraday activity data`);
+
+  // Format the dates
+  const now_ts = Math.round((new Date()).getTime() / 1000);
+  const hour_ago_ts = now_ts - (60 * 60) / 2;
+
+  // Set request parameters
+  const start_date = hour_ago_ts;
+  const end_date = now_ts;
+  const data_fields = `steps,elevation,calories,distance,duration,heart_rate`;
+
+  // Finalize the request URI
+  const uri = `https://wbsapi.withings.net/v2/measure?` + 
+    `action=getintradayactivity` + 
+    `&startdate=${start_date}&enddate=${end_date}&` +
+    `data_fields=${data_fields}`;
+
+  console.log(`[JOB: handle_intraday_activity] Token is ${process.env.access_token}`);
+  // Call the API
+  request.get(uri,
+    { 'auth': { 'bearer': process.env.access_token } },
+    (err, response, body) => {
+      console.log(`[JOB: handle_intraday_activity] Response from endpoint: ${JSON.stringify(body, null, 2)}`);
+      return;
+    }
+  );
 }
 
 module.exports.handle_workouts = () => {
-  console.log(`[JOB handle_workouts] Getting workouts data`);
-  throw new Error("Unimplemented!");
+  /**
+   * JOB: EVERY 24 HOURS
+   */
+  console.log(`[JOB: handle_workouts] Getting workouts data`);
+
+  // Format the dates
+  const now = new Date();
+  const yesterday_time = new Date();
+  yesterday_time.setDate(yesterday_time.getDate() - 1);
+
+  const day = ("0" + now.getDate()).slice(-2);
+  const month = ("0" + (now.getMonth() + 1)).slice(-2);
+  const today_date = now.getFullYear() + "-" + (month) + "-" + (day);
+  
+  const yesterday_day = ("0" + yesterday_time.getDate()).slice(-2);
+  const yesterday_month = ("0" + (yesterday_time.getMonth() + 1)).slice(-2);
+  const yesterday_date = yesterday_time.getFullYear() +  "-" + 
+    (yesterday_month) + "-" + (yesterday_day);
+
+  // Set request parameters
+  const start_date = yesterday_date;
+  const end_date = today_date;
+
+  const data_fields = `calories,effduration,intensity,` + 
+    `calories,hr_average,hr_min,hr_max,` + 
+    `hr_zone_0,hr_zone_1,hr_zone_2,hr_zone_3`;
+
+  // Finalize the request URI
+  const uri = `https://wbsapi.withings.net/v2/measure?` + 
+    `action=getworkouts` + 
+    `&startdateymd=${start_date}&enddateymd=${end_date}&` +
+    `data_fields=${data_fields}`;
+
+  // Call the API
+  request.get(uri,
+    { 'auth': { 'bearer': process.env.access_token } },
+    (err, response, body) => {
+      console.log(`[JOB: handle_workouts] Response from endpoint: ${JSON.stringify(body, null, 2)}`);
+      return;
+    }
+  );
 }
 
 // **********************************************
@@ -110,7 +216,7 @@ module.exports.handle_sleep = () => {
   /**
    * JOB: EVERY 30 MINUTES
    */
-  console.log(`[JOB handle_sleep] Getting sleep data`);
+  console.log(`[JOB: handle_sleep] Getting sleep data`);
 
   // Format the dates
   const now_ts = Math.round((new Date()).getTime() / 1000);
@@ -139,7 +245,7 @@ module.exports.handle_sleep = () => {
 
 module.exports.handle_sleep_summary = () => {
   /**
-   * JOB: EVERY 12 HOURS, AT 12 PM and 12 AM (DAY TIME)
+   * JOB: EVERY 24 HOURS
    */
   console.log(`[JOB: handle_sleep_summary] Getting summary of sleep ...`);
 
