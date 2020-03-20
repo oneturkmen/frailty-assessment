@@ -13,4 +13,4 @@ RUN npm install
 COPY . .
 
 # open port 3000 (default for node) for communication with container
-EXPOSE 5050
+EXPOSE 3000
