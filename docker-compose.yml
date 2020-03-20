@@ -5,24 +5,37 @@ services:
   
   # TODO: Add "back-server" service
 
-  worker:
-    build: ./worker
+  back-server:
+    build: ./server
     ports:
-      - 5000:5000
+      - "3030:3030"
     environment:
-      - PORT=5000
-      - CLIENT_ID=${CLIENT_ID}
-      - CLIENT_SECRET=${CLIENT_SECRET}
-      - CALLBACK_URI=${CALLBACK_URI}
-      - NODE_ENV=dev
-      - DB_URI=postgres://unicorn:chocolate@database:5432/rainbow
+      - PORT=3030
     networks:
-      - back
+      - backend
+      - frontend
     depends_on:
       - database
-    command: /bin/sh -c "sleep 10 && npm start"  # wait until database is ready for conns
-    # if you ever get permission denied error, look here:
-    # https://github.community/t5/GitHub-Actions/Permission-Denied-quot-exec-entrypoint-sh-quot/td-p/31249
+    command: /bin/sh -c "sleep 10 && npm start"
+
+  # worker:
+  #   build: ./worker
+  #   ports:
+  #     - 5000:5000
+  #   environment:
+  #     - PORT=5000
+  #     - CLIENT_ID=${CLIENT_ID}
+  #     - CLIENT_SECRET=${CLIENT_SECRET}
+  #     - CALLBACK_URI=${CALLBACK_URI}
+  #     - NODE_ENV=dev
+  #     - DB_URI=postgres://unicorn:chocolate@database:5432/rainbow
+  #   networks:
+  #     - backend
+  #   depends_on:
+  #     - database
+  #   command: /bin/sh -c "sleep 10 && npm start"  # wait until database is ready for conns
+  #   # if you ever get permission denied error, look here:
+  #   # https://github.community/t5/GitHub-Actions/Permission-Denied-quot-exec-entrypoint-sh-quot/td-p/31249
 
   database:
     image: postgres:9.6.17-alpine
@@ -37,10 +50,11 @@ services:
     ports:
       - 5432
     networks:
-      - back
+      - backend
 
 volumes:
   db-data:
 
 networks:
-  back:
+  backend:
+  frontend:
