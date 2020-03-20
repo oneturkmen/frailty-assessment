@@ -12,5 +12,5 @@ RUN npm install
 # copy application files
 COPY . /app
 
-# open port 3000 (default for node) for communication with container
-EXPOSE 3000
+# open port 3030 (default for node) for communication with container
+EXPOSE 3030
