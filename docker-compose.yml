@@ -1,6 +1,10 @@
 version: '3'
 services:
 
+  # TODO: Add "front-server" service
+  
+  # TODO: Add "back-server" service
+
   worker:
     build: ./worker
     ports:
