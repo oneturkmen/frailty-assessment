@@ -10,7 +10,7 @@ COPY package.json /app
 RUN npm install
 
 # copy application files
-COPY . .
+COPY . /app
 
 # open port 3000 (default for node) for communication with container
 EXPOSE 3000
