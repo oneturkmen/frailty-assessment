@@ -1,31 +1,31 @@
 version: '3'
 services:
 
-  front-server:
-    build: ./ui
-    ports:
-      - "3000:3000"
-    # environment:
-    #   - PORT=3000
-    networks:
-      - frontend
-    depends_on:
-      - database
-      - back-server
-    command: /bin/sh -c "sleep 12 && npm start" # We also have to wait for server
+  # front-server:
+  #   build: ./ui
+  #   ports:
+  #     - "3000:3000"
+  #   # environment:
+  #   #   - PORT=3000
+  #   networks:
+  #     - frontend
+  #   depends_on:
+  #     - database
+  #     - back-server
+  #   command: /bin/sh -c "sleep 12 && npm start" # We also have to wait for server
 
-  back-server:
-    build: ./server
-    ports:
-      - "3030:3030"
-    environment:
-      - PORT=3030
-    networks:
-      - backend
-      - frontend
-    depends_on:
-      - database
-    command: /bin/sh -c "sleep 10 && npm start"
+  # back-server:
+  #   build: ./server
+  #   ports:
+  #     - "3030:3030"
+  #   environment:
+  #     - PORT=3030
+  #   networks:
+  #     - backend
+  #     - frontend
+  #   depends_on:
+  #     - database
+  #   command: /bin/sh -c "sleep 10 && npm start"
 
   # worker:
   #   build: ./worker
@@ -57,7 +57,7 @@ services:
       - ./db:/docker-entrypoint-initdb.d # tables and stuff
       - db-data:/var/lib/postgresql/data # persist data
     ports:
-      - 5432
+      - "5434:5432"
     networks:
       - backend
 
