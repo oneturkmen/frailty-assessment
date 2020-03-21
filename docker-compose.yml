@@ -57,7 +57,7 @@ services:
       - ./db:/docker-entrypoint-initdb.d # tables and stuff
       - db-data:/var/lib/postgresql/data # persist data
     ports:
-      - 5432
+      - "5434:5432"
     networks:
       - backend
 
