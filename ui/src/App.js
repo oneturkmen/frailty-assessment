@@ -1,18 +1,27 @@
 /* eslint-disable class-methods-use-this */
 import React, {
-  Component, Fragment,
+  Component,
 } from 'react';
-import { Header, Footer } from './components/layout';
-import TestServer from './components/core/TestServer.js';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { Header, Footer, Sidebar } from './components/layout';
+
+import DashboardService from './components/dashboard/Main';
 
 class App extends Component {
   render() {
     return (
-      <Fragment>
+      <BrowserRouter>
         <Header />
-        <TestServer />
+        <Switch>
+          {/* <Route path="/services/hashtag-analysis">
+            <OtherService />
+          </Route> */}
+          <Route path="/">
+            <DashboardService />
+          </Route>
+        </Switch>
         <Footer />
-      </Fragment>
+      </BrowserRouter>
     );
   }
 }
