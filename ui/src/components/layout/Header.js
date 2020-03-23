@@ -5,6 +5,8 @@ import {
   AppBar, Toolbar, Typography,
 } from '@material-ui/core';
 
+import Sidebar from './Sidebar';
+
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
@@ -23,6 +25,7 @@ function Header() {
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
+          <Sidebar />
           <Typography variant="h6" className={classes.title}>
             Frailty Assessment Platform
           </Typography>
