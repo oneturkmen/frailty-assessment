@@ -10,7 +10,7 @@ import pandas as pd
 
 ```bash
 docker-compose -f docker-compose.yml down
-docker-compose volume rm frailty-platform_db-data 
+docker volume rm frailty-platform_db-data 
 docker-compose -f docker-compose.yml up --build
 ```
 
