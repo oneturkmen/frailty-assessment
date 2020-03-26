@@ -6,6 +6,7 @@ import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { Header, Footer, Sidebar } from './components/layout';
 
 import DashboardService from './components/dashboard/Main';
+import MeasurementsService from './components/measurements/Main';
 
 class App extends Component {
   render() {
@@ -16,6 +17,9 @@ class App extends Component {
           {/* <Route path="/services/hashtag-analysis">
             <OtherService />
           </Route> */}
+          <Route path="/services/measurements">
+            <MeasurementsService />
+          </Route>
           <Route path="/">
             <DashboardService />
           </Route>
