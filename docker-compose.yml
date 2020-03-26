@@ -1,18 +1,18 @@
 version: '3'
 services:
 
-  front-server:
-    build: ./ui
-    ports:
-      - "3000:3000"
-    # environment:
-    #   - PORT=3000
-    networks:
-      - frontend
-    depends_on:
-      - database
-      - back-server
-    command: /bin/sh -c "sleep 12 && npm start" # We also have to wait for server
+  # front-server:
+  #   build: ./ui
+  #   ports:
+  #     - "3000:3000"
+  #   # environment:
+  #   #   - PORT=3000
+  #   networks:
+  #     - frontend
+  #   depends_on:
+  #     - database
+  #     - back-server
+  #   command: /bin/sh -c "sleep 12 && npm start" # We also have to wait for server
 
   back-server:
     build: ./server
