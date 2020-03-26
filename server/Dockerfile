@@ -1,16 +1,22 @@
-# Fetch Node.js 13
-FROM node:13.7.0-alpine3.11
+# Reference: 
+# https://medium.com/bitcraft/docker-composing-a-python-3-flask-app-line-by-line-93b721105777
 
-# Create folder that will contain the project files
-RUN mkdir /app
-WORKDIR /app
+FROM python:3
 
-# Copy package.json
-COPY package.json /app
-RUN npm install
+# Set env variable with the directory
+# containing the app
+ENV APP_DIR /app
 
-# copy application files
-COPY . /app
+# Create a directory for our API
+RUN mkdir $APP_DIR
+WORKDIR $APP_DIR
 
-# open port 3030 (default for node) for communication with container
-EXPOSE 3030
+# Port on which the app is going to listen
+EXPOSE 5000
+
+# Copy and install dependencies
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+
+# Copy the rest of the codebase
+COPY . .
