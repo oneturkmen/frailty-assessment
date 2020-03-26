@@ -141,6 +141,6 @@ app.get('/oauth_callback', (req, res) => {
   });
 });
 
-app.listen(process.env.PORT || 80, () => {
-  console.log(`Listening on ${process.env.PORT || 80}`)
+app.listen(process.env.PORT || 5050, () => {
+  console.log(`Listening on ${process.env.PORT || 5050}`)
 });
