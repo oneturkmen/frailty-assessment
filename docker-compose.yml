@@ -25,7 +25,7 @@ services:
       - database
     volumes:
       - "./server:/app"
-    command: /bin/sh -c "sleep 10 && uwsgi --ini app.ini"
+    command: /bin/sh -c "sleep 10 && uwsgi --ini app.ini --honour-stdin"
   
   # worker:
   #   build: ./worker

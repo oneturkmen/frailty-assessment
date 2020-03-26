@@ -33,7 +33,7 @@ SELECT *, COUNT(*) FROM user_phenotype LIMIT 5;
 ```
 """
 
-is_user_ok = "False"
+is_user_ok = 'False'
 
 
 def exec_query(query):
@@ -68,7 +68,6 @@ def exec_query(query):
 
 
 def analyze(data):
-    # print(data)
     processed_data = []
     for row in data:
         for d in row:
@@ -184,6 +183,6 @@ def weight_analysis(endDate):
         return 0
 
 
-if __name__ == '__main__':
+# if __name__ == '__main__':
 
-    monthly_analysis(1588899601)
+#     monthly_analysis(1588899601)
