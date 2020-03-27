@@ -112,7 +112,9 @@ def weekly_bp(endDate):
     results = exec_query(q)
 
     # Format
-    results = [{'ts': ts, 'dias': d, 'syst': s} for ts, d, s in results]
+    results = [[ts, val_d, val_s] for ts, val_d, val_s in results]
+    results.insert(0, ['Time', 'Diastolic', 'Systolic'])
+    # results = [{'ts': ts, 'dias': d, 'syst': s} for ts, d, s in results]
 
     # Return
     return results
@@ -127,7 +129,9 @@ def monthly_bp(endDate):
     results = exec_query(q)
 
     # Format
-    results = [{'ts': ts, 'dias': d, 'syst': s} for ts, d, s in results]
+    results = [[ts, val_d, val_s] for ts, val_d, val_s in results]
+    results.insert(0, ['Time', 'Diastolic', 'Systolic'])
+    # results = [{'ts': ts, 'dias': d, 'syst': s} for ts, d, s in results]
 
     # Return
     return results

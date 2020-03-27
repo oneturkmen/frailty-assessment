@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-function HeartRate(props) {
+function ChartPaper(props) {
   const styles = useStyles();
 
   const { chartTitle, data } = props;
@@ -32,6 +32,7 @@ function HeartRate(props) {
     },
     series: {
       0: { curveType: 'function' },
+      1: { curveType: 'function' },
     },
     legend: {
       position: 'bottom'
@@ -72,4 +73,4 @@ function HeartRate(props) {
   );
 }
 
-export default HeartRate;
+export default ChartPaper;
