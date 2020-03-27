@@ -10,7 +10,7 @@ import retrieval
 
 # Allow CORS access from the front-end server
 app = Flask(__name__)
-CORS(app, resources={r"*": {"origins": "http://front-server:3000"}})
+CORS(app, resources={r"*": {"origins": ["http://front-server:3000","http://localhost:3000"]}})
 
 #########################################################################
 ############################# Healthcheck ###############################

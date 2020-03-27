@@ -12,7 +12,7 @@ services:
     depends_on:
       - database
       - back-server
-    command: /bin/sh -c "sleep 12 && npm start" # We also have to wait for server
+    command: /bin/sh -c "sleep 7 && npm start" # We also have to wait for server
 
   back-server:
     build: ./server
@@ -25,7 +25,7 @@ services:
       - database
     volumes:
       - "./server:/app"
-    command: /bin/sh -c "sleep 10 && uwsgi --ini app.ini --honour-stdin"
+    command: /bin/sh -c "sleep 5 && uwsgi --ini app.ini --honour-stdin"
   
   database:
     image: postgres:9.6.17-alpine

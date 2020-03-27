@@ -77,7 +77,9 @@ def weekly_hr(endDate):
     results = exec_query(q)
 
     # Format
-    results = [{'ts': ts, 'val': val} for ts, val in results]
+    results = [[ts, val] for ts, val in results]
+    results.insert(0, ['Time', 'Value'])
+    # results = [{'ts': ts, 'val': val} for ts, val in results]
 
     # Return
     return results
@@ -92,7 +94,9 @@ def monthly_hr(endDate):
     results = exec_query(q)
 
     # Format
-    results = [{'ts': ts, 'val': val} for ts, val in results]
+    results = [[ts, val] for ts, val in results]
+    results.insert(0, ['Time', 'Value'])
+    # results = [{'ts': ts, 'val': val} for ts, val in results]
 
     # Return
     return results
