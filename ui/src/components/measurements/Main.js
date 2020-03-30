@@ -23,6 +23,8 @@ function Measurements() {
 
   const [weeklyHrData, setWeeklyHrData] = useState([]);
 
+  const hr_baseline = 100;
+
   useEffect(() => {
     fetch("http://localhost:5000/hr/weekly")
       .then((res) => res.json())

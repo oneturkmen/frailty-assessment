@@ -21,15 +21,23 @@ const useStyles = makeStyles((theme) => ({
 function ChartPaper(props) {
   const styles = useStyles();
 
-  const { chartTitle, data } = props;
+  const { chartTitle, data, baseline } = props;
 
+  // Set baseline if exists
+  let vAxis;
+  if (!baseline || typeof baseline === 'undefined') {
+    vAxis = {};
+  }
+  else {
+    vAxis = {
+      baseline: baseline,
+      baselineColor: 'red',
+    };
+  }
+
+  // Set chart options
   const options = {
-    hAxis: {
-      title: 'Time',
-    },
-    vAxis: {
-      title: 'Measurement',
-    },
+    vAxis,
     series: {
       0: { curveType: 'function' },
       1: { curveType: 'function' },
