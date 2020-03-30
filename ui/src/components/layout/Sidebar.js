@@ -15,7 +15,7 @@ import {
 
 import MenuIcon from '@material-ui/icons/Menu';
 import DashboardIcon from '@material-ui/icons/Dashboard';
-import WhatshotIcon from '@material-ui/icons/Whatshot';
+import TimelineIcon from '@material-ui/icons/Timeline';
 import FitnessCenterIcon from '@material-ui/icons/FitnessCenter';
 import AssessmentIcon from '@material-ui/icons/Assessment';
 
@@ -61,9 +61,9 @@ export default function Sidebar() {
       path: '/services/activity',
     },
     {
-      text: 'Calories',
-      icon: <WhatshotIcon />,
-      path: '/services/calories',
+      text: 'Weight',
+      icon: <TimelineIcon />,
+      path: '/services/weight',
     },
   ];
   
