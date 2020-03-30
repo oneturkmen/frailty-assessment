@@ -59,8 +59,8 @@ function ChartPaper(props) {
         </Grid>
         <Grid item md={10}>
           <Chart
-            width={'35em'}
-            height={'20em'}
+            width={'30vw'}
+            height={'40vh'}
             chartType="LineChart"
             loader={<div>Loading Chart</div>}
             data={data}
