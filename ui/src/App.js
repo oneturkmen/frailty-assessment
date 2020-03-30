@@ -3,10 +3,11 @@ import React, {
   Component,
 } from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { Header, Footer, Sidebar } from './components/layout';
+import { Header, Footer } from './components/layout';
 
 import DashboardService from './components/dashboard/Main';
 import MeasurementsService from './components/measurements/Main';
+import ActivityService from './components/activity/Main';
 
 class App extends Component {
   render() {
@@ -19,6 +20,9 @@ class App extends Component {
           </Route> */}
           <Route path="/services/measurements">
             <MeasurementsService />
+          </Route>
+          <Route path="/services/activity">
+            <ActivityService />
           </Route>
           <Route path="/">
             <DashboardService />

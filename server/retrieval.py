@@ -135,3 +135,73 @@ def monthly_bp(endDate):
 
     # Return
     return results
+
+"""
+Get steps walked for the past week (daily)
+"""
+def weekly_steps(endDate):
+    # Get data for last week (from `endDate`)
+    startDate = endDate - (86400*7)
+    q = ("SELECT created_at, steps FROM user_phenotype WHERE is_user_ok={0}"
+        " and created_at>={1} and created_at<{2}").format(is_user_ok, startDate, endDate)
+    results = exec_query(q)
+
+    # Format
+    results = [[ts, val] for ts, val in results]
+    results.insert(0, ['Time', 'Steps'])
+    # results = [{'ts': ts, 'val': val} for ts, val in results]
+
+    # Return
+    return results
+
+"""
+Get steps walked for the past month (daily)
+"""
+def monthly_steps(endDate):
+    startDate = endDate - (86400*30)
+    q = ("SELECT created_at, steps FROM user_phenotype WHERE is_user_ok={0}"
+        " and created_at>={1} and created_at<{2}").format(is_user_ok, startDate, endDate)
+    results = exec_query(q)
+
+    # Format
+    results = [[ts, val] for ts, val in results]
+    results.insert(0, ['Time', 'Steps'])
+    # results = [{'ts': ts, 'val': val} for ts, val in results]
+
+    # Return
+    return results
+
+"""
+Get calories burnt for the past week (daily)
+"""
+def weekly_calories(endDate):
+    # Get data for last week (from `endDate`)
+    startDate = endDate - (86400*7)
+    q = ("SELECT created_at, calories FROM user_phenotype WHERE is_user_ok={0}"
+        " and created_at>={1} and created_at<{2}").format(is_user_ok, startDate, endDate)
+    results = exec_query(q)
+
+    # Format
+    results = [[ts, val] for ts, val in results]
+    results.insert(0, ['Time', 'Calories'])
+    # results = [{'ts': ts, 'val': val} for ts, val in results]
+
+    # Return
+    return results
+
+"""
+Get calories burnt for the past month (daily)
+"""
+def monthly_calories(endDate):
+    startDate = endDate - (86400*30)
+    q = ("SELECT created_at, calories FROM user_phenotype WHERE is_user_ok={0}"
+        " and created_at>={1} and created_at<{2}").format(is_user_ok, startDate, endDate)
+    results = exec_query(q)
+
+    # Format
+    results = [[ts, val] for ts, val in results]
+    results.insert(0, ['Time', 'Calories'])
+    # results = [{'ts': ts, 'val': val} for ts, val in results]
+
+    # Return
+    return results

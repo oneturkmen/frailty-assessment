@@ -74,6 +74,53 @@ def chart_monthly_bp():
         end_date = int(end_date)
     return jsonify(retrieval.monthly_bp(end_date))
 
+"""
+Get weekly steps data
+"""
+@app.route('/steps/weekly', methods=['GET'])
+def chart_weekly_steps():
+    end_date = request.args.get('until')
+    if end_date is None:
+        end_date = int(time.time())
+    else:
+        end_date = int(end_date)
+    return jsonify(retrieval.weekly_steps(end_date))
+
+"""
+Get monthly steps data
+"""
+@app.route('/steps/monthly', methods=['GET'])
+def chart_monthly_steps():
+    end_date = request.args.get('until')
+    if end_date is None:
+        end_date = int(time.time())
+    else:
+        end_date = int(end_date)
+    return jsonify(retrieval.monthly_steps(end_date))
+
+"""
+Get weekly calories data
+"""
+@app.route('/calories/weekly', methods=['GET'])
+def chart_weekly_calories():
+    end_date = request.args.get('until')
+    if end_date is None:
+        end_date = int(time.time())
+    else:
+        end_date = int(end_date)
+    return jsonify(retrieval.weekly_calories(end_date))
+
+"""
+Get monthly steps data
+"""
+@app.route('/calories/monthly', methods=['GET'])
+def chart_monthly_calories():
+    end_date = request.args.get('until')
+    if end_date is None:
+        end_date = int(time.time())
+    else:
+        end_date = int(end_date)
+    return jsonify(retrieval.monthly_calories(end_date))
 
 #########################################################################
 ###################### Analysis (actual assessment) #####################
