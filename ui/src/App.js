@@ -8,6 +8,7 @@ import { Header, Footer } from './components/layout';
 import DashboardService from './components/dashboard/Main';
 import MeasurementsService from './components/measurements/Main';
 import ActivityService from './components/activity/Main';
+import WeightService from './components/weight/Main';
 
 class App extends Component {
   render() {
@@ -23,6 +24,9 @@ class App extends Component {
           </Route>
           <Route path="/services/activity">
             <ActivityService />
+          </Route>
+          <Route path="/services/weight">
+            <WeightService />
           </Route>
           <Route path="/">
             <DashboardService />

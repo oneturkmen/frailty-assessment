@@ -33,7 +33,7 @@ function Activity() {
         return res.map(entry => {
           if (typeof entry[0] === "number") {
             const t = (new Date(entry[0] * 1000)).toISOString();
-            return [t.substr(0, 10), entry[1]];
+            return [t.substr(0, 10), entry[1] * 1000];
           } 
           else {
             return entry;
@@ -63,7 +63,7 @@ function Activity() {
         return res.map(entry => {
           if (typeof entry[0] === "number") {
             const t = (new Date(entry[0] * 1000)).toISOString();
-            return [t.substr(0, 10), entry[1]];
+            return [t.substr(0, 10), entry[1] * 1000];
           } 
           else {
             return entry;

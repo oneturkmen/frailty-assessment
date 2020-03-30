@@ -205,3 +205,19 @@ def monthly_calories(endDate):
 
     # Return
     return results
+
+"""
+Get all weight data.
+"""
+def all_weight(endDate):
+    q = ("SELECT created_at, wght FROM user_phenotype WHERE is_user_ok={0}"
+        " and created_at<{1}").format(is_user_ok, endDate)
+    results = exec_query(q)
+
+    # Format
+    results = [[ts, val] for ts, val in results]
+    results.insert(0, ['Time', 'Weight'])
+    # results = [{'ts': ts, 'val': val} for ts, val in results]
+
+    # Return
+    return results

@@ -122,6 +122,19 @@ def chart_monthly_calories():
         end_date = int(end_date)
     return jsonify(retrieval.monthly_calories(end_date))
 
+"""
+Get weight for 6 months (all)
+"""
+@app.route('/weight', methods=['GET'])
+def chart_all_weight():
+    end_date = request.args.get('until')
+    if end_date is None:
+        end_date = int(time.time())
+    else:
+        end_date = int(end_date)
+    return jsonify(retrieval.all_weight(end_date))
+
+
 #########################################################################
 ###################### Analysis (actual assessment) #####################
 #########################################################################
