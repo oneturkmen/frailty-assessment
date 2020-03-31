@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Typography, TextField } from '@material-ui/core';
+import DateFnsUtils from '@date-io/date-fns';
+import { KeyboardDatePicker, MuiPickersUtilsProvider } from '@material-ui/pickers';
+
 import { makeStyles } from '@material-ui/core/styles';
 
 import ChartPaper from './ChartPaper';
@@ -16,18 +19,185 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const getToday = () => {
+  const date = new Date();
+
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+
+  let res = '';
+
+  if (month < 10) {
+    res += `0${month}`;
+  } else {
+    res += `${month}`;
+  }
+
+  res += '/';
+
+  if (day < 10) {
+    res += `0${day}`;
+  } else {
+    res += `${day}`;
+  }
+
+  res += `/${year}`;
+
+  return res;
+};
+
+const formatDate = (date) => {
+  const day = date.getDate();
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+
+  let res = '';
+
+  if (month < 10) {
+    res += `0${month}`;
+  } else {
+    res += `${month}`;
+  }
+
+  res += '/';
+
+  if (day < 10) {
+    res += `0${day}`;
+  } else {
+    res += `${day}`;
+  }
+
+  res += `/${year}`;
+
+  return res;
+};
 
 
 function Activity() {
   const styles = useStyles();
 
   const [weeklyStepsData, setWeeklyStepsData] = useState([]);
+  const [untilDate, setUntilDate] = useState(new Date(getToday()));
 
-  const steps_baseline = 11; // in thousands
+  const steps_baseline = 11000; // in thousands
   const calories_baseline = 0.27; // for women
 
+  const handleDateChange = (date) => {
+    const formatted = formatDate(date);
+    console.log(formatted)
+    setUntilDate(formatted);
+
+    const ts = Math.round((new Date(formatted)).getTime()/1000);
+
+    // Weekly steps
+    fetch(`http://localhost:5000/steps/weekly?until=${ts}`)
+      .then((res) => res.json())
+      .then((res) => {
+        return res.map(entry => {
+          if (typeof entry[0] === "number") {
+            const t = (new Date(entry[0] * 1000)).toISOString();
+            return [t.substr(0, 10), entry[1] * 1000];
+          } 
+          else {
+            return entry;
+          }
+        })
+      })
+      .then(
+        (result) => {
+          setWeeklyStepsData(result);
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          throw error;
+        },
+      );
+
+    // Monthly steps
+    fetch(`http://localhost:5000/steps/monthly?until=${ts}`)
+      .then((res) => res.json())
+      .then((res) => {
+        return res.map(entry => {
+          if (typeof entry[0] === "number") {
+            const t = (new Date(entry[0] * 1000)).toISOString();
+            return [t.substr(0, 10), entry[1] * 1000];
+          } 
+          else {
+            return entry;
+          }
+        })
+      })
+      .then(
+        (result) => {
+          setMonthlyStepsData(result);
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          throw error;
+        },
+      );
+
+    // Weekly calories
+    fetch(`http://localhost:5000/calories/weekly?until=${ts}`)
+      .then((res) => res.json())
+      .then((res) => {
+        return res.map(entry => {
+          if (typeof entry[0] === "number") {
+            const t = (new Date(entry[0] * 1000)).toISOString();
+            return [t.substr(0, 10), entry[1]];
+          } 
+          else {
+            return entry;
+          }
+        })
+      })
+      .then(
+        (result) => {
+          setWeeklyCaloriesData(result);
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          throw error;
+        },
+      );
+
+    // Monthly calories
+    fetch(`http://localhost:5000/calories/monthly?until=${ts}`)
+      .then((res) => res.json())
+      .then((res) => {
+        return res.map(entry => {
+          if (typeof entry[0] === "number") {
+            const t = (new Date(entry[0] * 1000)).toISOString();
+            return [t.substr(0, 10), entry[1]];
+          } 
+          else {
+            return entry;
+          }
+        })
+      })
+      .then(
+        (result) => {
+          setMonthlyCaloriesData(result);
+        },
+        // Note: it's important to handle errors here
+        // instead of a catch() block so that we don't swallow
+        // exceptions from actual bugs in components.
+        (error) => {
+          throw error;
+        },
+      );
+  };
+
   useEffect(() => {
-    fetch("http://localhost:5000/steps/weekly")
+    const ts = Math.round((new Date(untilDate)).getTime()/1000);
+    fetch(`http://localhost:5000/steps/weekly?until=${ts}`)
       .then((res) => res.json())
       .then((res) => {
         return res.map(entry => {
@@ -57,7 +227,8 @@ function Activity() {
   const [monthlyStepsData, setMonthlyStepsData] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/steps/monthly")
+    const ts = Math.round((new Date(untilDate)).getTime()/1000);
+    fetch(`http://localhost:5000/steps/monthly?until=${ts}`)
       .then((res) => res.json())
       .then((res) => {
         return res.map(entry => {
@@ -86,7 +257,8 @@ function Activity() {
   const [weeklyCaloriesData, setWeeklyCaloriesData] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/calories/weekly")
+    const ts = Math.round((new Date(untilDate)).getTime()/1000);
+    fetch(`http://localhost:5000/calories/weekly?until=${ts}`)
       .then((res) => res.json())
       .then((res) => {
         return res.map(entry => {
@@ -115,7 +287,8 @@ function Activity() {
   const [monthlyCaloriesData, setMonthlyCaloriesData] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5000/calories/monthly")
+    const ts = Math.round((new Date(untilDate)).getTime()/1000);
+    fetch(`http://localhost:5000/calories/monthly?until=${ts}`)
       .then((res) => res.json())
       .then((res) => {
         return res.map(entry => {
@@ -154,6 +327,18 @@ function Activity() {
           <Typography align="center" className={styles.header} variant="h4">
             Physical Activity
           </Typography>
+          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+            <KeyboardDatePicker
+              id="date-picker-dialog"
+              format="MM/dd/yyyy"
+              label="Until Date"
+              value={untilDate}
+              onChange={handleDateChange}
+              KeyboardButtonProps={{
+                'aria-label': 'change date',
+              }}
+            />
+          </MuiPickersUtilsProvider>
         </Grid>
         <Grid container item
           md={10}
