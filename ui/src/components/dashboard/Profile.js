@@ -15,7 +15,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
     height: '100%',
-    padding: theme.spacing(1),
     backgroundColor: '#fafafa'
   },
   profile: {
@@ -25,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
     border: 'none !important',
   },
   header: {
+    paddingTop: theme.spacing(1),
     paddingLeft: theme.spacing(2),
     paddingBottom: theme.spacing(1),
     fontWeight: 'bold'
@@ -40,6 +40,7 @@ function Profile() {
   const styles = useStyles();
 
   const profile_data = {
+    name: 'John Doe',
     weight: 75.7,
     height: 182,
     age: 24,
@@ -56,18 +57,22 @@ function Profile() {
         <Table aria-label="profile table" className={styles.table}>
           <TableBody>
             <TableRow key={1}>
+              <TableCell className={styles.cell} component="th" scope="row">Name</TableCell>
+              <TableCell className={styles.cell} align="right">{profile_data.name}</TableCell>
+            </TableRow>
+            <TableRow key={2}>
               <TableCell className={styles.cell} component="th" scope="row">Weight</TableCell>
               <TableCell className={styles.cell} align="right">{profile_data.weight} kg</TableCell>
             </TableRow>
-            <TableRow key={2}>
+            <TableRow key={3}>
               <TableCell className={styles.cell} component="th" scope="row">Height</TableCell>
               <TableCell className={styles.cell} align="right">{profile_data.height} cm</TableCell>
             </TableRow>
-            <TableRow key={3}>
+            <TableRow key={4}>
               <TableCell className={styles.cell} component="th" scope="row">Age</TableCell>
               <TableCell className={styles.cell} align="right">{profile_data.age} y.o.</TableCell>
             </TableRow>
-            <TableRow key={4}>
+            <TableRow key={5}>
               <TableCell className={styles.cell} component="th" scope="row">Date of birth</TableCell>
               <TableCell className={styles.cell} align="right">{profile_data.dob}</TableCell>
             </TableRow>

@@ -12,10 +12,10 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
     height: '100%',
-    padding: theme.spacing(1),
     backgroundColor: '#fafafa'
   },
   header: {
+    paddingTop: theme.spacing(1),
     paddingLeft: theme.spacing(2),
     fontWeight: 'bold',
   },

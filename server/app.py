@@ -5,7 +5,7 @@ from flask_cors import CORS
 
 import time
 
-from analyzer import monthly_analysis
+import analyzer
 import retrieval
 
 # Allow CORS access from the front-end server
@@ -138,6 +138,30 @@ def chart_all_weight():
 #########################################################################
 ###################### Analysis (actual assessment) #####################
 #########################################################################
+
+"""
+Get frailty score for the past month
+"""
+@app.route('/score/month', methods=['GET'])
+def score_month():
+    end_date = request.args.get('until')
+    if end_date is None:
+        end_date = int(time.time())
+    else:
+        end_date = int(end_date)
+    return jsonify(analyzer.monthly_analysis(end_date))
+
+"""
+Get frailty score for the past week
+"""
+@app.route('/score/week', methods=['GET'])
+def score_week():
+    end_date = request.args.get('until')
+    if end_date is None:
+        end_date = int(time.time())
+    else:
+        end_date = int(end_date)
+    return jsonify(analyzer.weekly_analysis(end_date))
 
 # @app.route('/', methods=['GET'])
 # def hello_world():
