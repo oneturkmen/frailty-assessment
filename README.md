@@ -18,7 +18,7 @@ run the following command (make sure you have [psycopg2 installed](https://pynat
 docker-compose up --build database
 
 # Store synthetic data
-python3 load_db.py
+python3 db/load_db.py
 
 # Shut down the database
 docker-compose down
