@@ -6,6 +6,10 @@
 - Docker Compose
 - Python3
 
+### Architecture
+
+![660_diagram](https://github.com/oneturkmen/frailty-assessment/assets/17970732/341be80a-93ea-4653-ad0e-979122ade4e5)
+
 ### Usage
 
 Docker and Docker Compose is needed to run the project.
